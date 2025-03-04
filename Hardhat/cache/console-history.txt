@@ -1,0 +1,6 @@
+const gambling = await ethers.getContractAt("Gambling", "0xGamblingContractAddress");const erc20 = await ethers.getContractAt("Hetic", "0xHeticContractAddress");console.log(await erc20.balanceOf("0xYourAddress"));
+const gambling = await ethers.getContractAt("Gambling", "0xGamblingContractAddress");const erc20 = await ethers.getContractAt("Hetic", "0xHeticContractAddress");
+const gambling = await ethers.getContractAt("Gambling", "0xGamblingContractAddress");
+console.log(await erc20.balanceOf("0xYourAddress"));
+const erc20 = await ethers.getContractAt("Hetic", "0xHeticContractAddress");
+const gambling = await ethers.getContractAt("Gambling", "0xGamblingContractAddress");
