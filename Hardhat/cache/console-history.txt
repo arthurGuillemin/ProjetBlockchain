@@ -1,3 +1,32 @@
+npx hardhat ignition deploy ./ignition/modules/Gambling.ts --network localhost
+let balance = await token.balanceOf("0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199");console.log("Balance du joueur :", balance.toString());
+let balance = await token.balanceOf("0xB29c87C3aC123456789abcdefABCDEF123456789");console.log("Balance du joueur :", balance.toString());
+await token.mint("0xB29c87C3aC123456789abcdefABCDEF123456789", ethers.utils.parseUnits("1000", 18));
+let token = await ethers.getContractAt("Hetic", "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9");
+let token = await ethers.getContractAt("Hetic", "0x9fE46736679d2D9a65F0992F2272dE9F3c7fa6e0");
+let token = await ethers.getContractAt("Hetic", "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9");
+await token.mint("0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9", ethers.utils.parseUnits("1000", 18));
+console.log(token);
+let token = await ethers.getContractAt("Hetic", "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0");
+console.log(token);
+let token = await ethers.getContractAt("Hetic", "0x9fE46736679d2D9a65F0992F2272dE9F3c7fa6e0");
+await Hetic.mint("0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9", ethers.utils.parseUnits("1000000", 18));
+await ERC20.mint("0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9", ethers.utils.parseUnits("1000000", 18));
+await token.mint("0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9", ethers.utils.parseUnits("1000000", 18));
+await token.mint("0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9", ethers.utils.parseUnits("1000", 18));
+console.log(ethers.utils.parseUnits("1000", 18));
+const { ethers } = require("hardhat");
+console.log(ethers);
+await token.mint("0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9", ethers.utils.parseUnits("1000", 18));
+let token = await ethers.getContractAt("Hetic", "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0");let gamblingBalance = await token.balanceOf("0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9");console.log("Solde du contrat Gambling :", gamblingBalance.toString());
+let token = await ethers.getContractAt("Hetic", "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0");let gamblingBalance = await token.balanceOf("0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9");console.log("Solde du contrat Gambling :", gamblingBalance.toStrin
+await ERC20.balanceOf("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512");console.log("Solde du contrat Gambling :", gamblingBalance.toString());
+await Betcoin.balanceOf("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512");console.log("Solde du contrat Gambling :", gamblingBalance.toString());
+await tokenERC20.transfer("ADRESSE_CONTRAT_GAMBLING", ethers.utils.parseUnits("1000", 18));
+await Hetic.balanceOf("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512");console.log("Solde du contrat Gambling :", gamblingBalance.toString());
+let gamblingBalance = await hetic.balanceOf("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512");console.log("Solde du contrat Gambling :", gamblingBalance.toString());
+let gamblingBalance = await tokenERC20.balanceOf("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512");console.log("Solde du contrat Gambling :", gamblingBalance.toString());
+let gamblingBalance = await tokenERC20.balanceOf("ADRESSE_CONTRAT_GAMBLING");console.log("Solde du contrat Gambling :", gamblingBalance.toString());
 const gambling = await ethers.getContractAt("Gambling", "0xGamblingContractAddress");const erc20 = await ethers.getContractAt("Hetic", "0xHeticContractAddress");console.log(await erc20.balanceOf("0xYourAddress"));
 const gambling = await ethers.getContractAt("Gambling", "0xGamblingContractAddress");const erc20 = await ethers.getContractAt("Hetic", "0xHeticContractAddress");
 const gambling = await ethers.getContractAt("Gambling", "0xGamblingContractAddress");

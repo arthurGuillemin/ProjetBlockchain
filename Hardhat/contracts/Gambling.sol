@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "hardhat/console.sol";
 
 interface IERC20 {
     function transfer(address to, uint256 amount) external returns (bool);
@@ -37,10 +36,6 @@ contract Gambling {
         // Verify token transfer
         require(token.transferFrom(msg.sender, address(this), amount), "Token transfer failed");
 
-        console.log("Player:", msg.sender);
-        console.log("Bet received:", amount);
-        console.log("Selected card index:", cardIndex);
-
         // Basic random generation
         uint256 random = uint256(keccak256(abi.encodePacked(block.timestamp, block.prevrandao, msg.sender, block.number))) % 100;
         bool win = random < 50;
@@ -50,15 +45,14 @@ contract Gambling {
             uint256 multiplier = multipliers[cardIndex];
             payout = (amount * multiplier) / 100;
 
-            console.log("Multiplier:", multiplier);
-            console.log("Calculated payout:", payout);
+
 
             require(token.balanceOf(address(this)) >= payout, "Insufficient contract funds");
             require(token.transfer(msg.sender, payout), "Payout transfer failed");
 
-            console.log("Payout sent:", payout);
+
         } else {
-            console.log("Player lost the bet.");
+
         }
 
         emit BetPlaced(msg.sender, amount, cardIndex, win, payout);

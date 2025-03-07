@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount, useWriteContract } from "wagmi";
+import { useAccount, useWriteContract, useReadContract } from "wagmi";
 import styles from "./page.module.css";
 import GamblingAbi from "../../../public/ABI/Gambling.json";
 import HeticAbi from "../../../public/ABI/Hetic.json";
@@ -25,9 +25,29 @@ export default function GamblingPage() {
   const [isApproved, setIsApproved] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
   const { address, isConnected } = useAccount();
   const { writeContract } = useWriteContract();
+
+  const {data : balance} = useReadContract({
+    abi: heticAbi,
+    functionName: "balanceOf",
+    address: tokenAddress,
+    args: [address],
+  });
+  console.log(balance)
+  if (!address) {
+    return <ConnectButton />;
+  }
+
+  const handleClick = () => {
+    writeContract({
+      abi: heticAbi,
+      functionName: "mint",
+      address: "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      args: [address, 100n],
+    })
+  }
+
 
   const handleApprove = async () => {
     if (isProcessing) return;
@@ -120,10 +140,10 @@ export default function GamblingPage() {
     <div className={styles.container}>
       <div className={styles.balance}>
         <img className={styles.logo_eth} src={logo} alt="Ethereum Logo" />
-        <span>0.00 ETH</span>
+        <span style={{color:'#FFFFF'}}>{balance?.toString()}</span>
         <button className={styles.add_balance}>+</button>
       </div>
-
+      <button onClick={handleClick}>mint</button>
       <div className={styles.betInputContainer}>
         <label htmlFor="betAmount">Montant à miser :</label>
         <input

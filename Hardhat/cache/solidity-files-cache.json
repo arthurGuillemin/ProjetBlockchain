@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\annic\\OneDrive\\Bureau\\Blockchain\\ProjetBlockchain\\Hardhat\\contracts\\Gambling.sol": {
-      "lastModificationDate": 1741334773810,
-      "contentHash": "22227fc377a294bf3acbc1fbe5dae84e",
+      "lastModificationDate": 1741348398818,
+      "contentHash": "96e84d7d785bf3b59a11d7743f9194ae",
       "sourceName": "contracts/Gambling.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -29,9 +29,7 @@
           }
         }
       },
-      "imports": [
-        "hardhat/console.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
         "^0.8.20"
       ],

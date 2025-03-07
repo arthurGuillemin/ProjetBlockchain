@@ -49,10 +49,6 @@ declare module "hardhat/types/runtime" {
       name: "Hetic",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Hetic__factory>;
-    getContractFactory(
-      name: "Lock",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Lock__factory>;
 
     getContractAt(
       name: "IERC1155Errors",
@@ -99,11 +95,6 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.Hetic>;
-    getContractAt(
-      name: "Lock",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Lock>;
 
     deployContract(
       name: "IERC1155Errors",
@@ -141,10 +132,6 @@ declare module "hardhat/types/runtime" {
       name: "Hetic",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Hetic>;
-    deployContract(
-      name: "Lock",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Lock>;
 
     deployContract(
       name: "IERC1155Errors",
@@ -191,11 +178,6 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Hetic>;
-    deployContract(
-      name: "Lock",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Lock>;
 
     // default types
     getContractFactory(

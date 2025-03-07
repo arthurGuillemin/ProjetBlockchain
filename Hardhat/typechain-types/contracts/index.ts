@@ -4,4 +4,3 @@
 import type * as gamblingSol from "./Gambling.sol";
 export type { gamblingSol };
 export type { Hetic } from "./Hetic";
-export type { Lock } from "./Lock";

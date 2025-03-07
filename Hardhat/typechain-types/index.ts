@@ -22,5 +22,3 @@ export type { Gambling } from "./contracts/Gambling.sol/Gambling";
 export { Gambling__factory } from "./factories/contracts/Gambling.sol/Gambling__factory";
 export type { Hetic } from "./contracts/Hetic";
 export { Hetic__factory } from "./factories/contracts/Hetic__factory";
-export type { Lock } from "./contracts/Lock";
-export { Lock__factory } from "./factories/contracts/Lock__factory";
