@@ -6,12 +6,10 @@ import { useAccount, useWriteContract } from "wagmi";
 import styles from "./page.module.css";
 import GamblingAbi from "../../../public/ABI/Gambling.json";
 import HeticAbi from "../../../public/ABI/Hetic.json";
-import { useReadContract } from "wagmi";
 
-
-// On force le typage de l'ABI pour Wagmi
-const gamblingAbi = GamblingAbi.abi as unknown as readonly unknown[];
-const heticAbi = HeticAbi.abi as unknown as readonly unknown[];
+// On force le typage des ABI pour Wagmi
+const gamblingAbi = GamblingAbi.abi;
+const heticAbi = HeticAbi.abi;
 
 // Chemins vers les images
 const logo = "/images/ethereum-eth-logo-diamond-purple.svg";
@@ -25,65 +23,92 @@ export default function GamblingPage() {
   const [betAmount, setBetAmount] = useState("0");
   const [flippedCards, setFlippedCards] = useState<boolean[]>([false, false, false, false]);
   const [isApproved, setIsApproved] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const { address } = useAccount();
-  const { writeContract } = useWriteContract(); 
+  const { address, isConnected } = useAccount();
+  const { writeContract } = useWriteContract();
 
   const handleApprove = async () => {
-    const amount = BigInt(Math.floor(Number(betAmount) * 10 ** 18));
-    if (amount <= 0) {
-      console.error("L'approbation nécessite un montant valide.");
+    if (isProcessing) return;
+
+    const parsedAmount = Number(betAmount);
+    if (isNaN(parsedAmount) || parsedAmount <= 0) {
+      setError("L'approbation nécessite un montant valide.");
       return;
     }
-  
+
+    const amount = BigInt(Math.floor(parsedAmount * 10 ** 18));
+
     try {
+      setError(null);
+      setIsProcessing(true);
+
       await writeContract({
         address: tokenAddress,
         abi: heticAbi,
         functionName: "approve",
         args: [gamblingAddress, amount],
       });
-      console.log("Approval successful");
+
       setIsApproved(true);
-      
+      console.log("Approval successful");
     } catch (error) {
+      setError("Échec de l'approbation. Vérifiez votre transaction.");
       console.error("Approval failed:", error);
+    } finally {
+      setIsProcessing(false);
     }
   };
-  
 
   const handleCardClick = async (cardIndex: number) => {
-    setFlippedCards((prev) => {
-      const newFlips = [...prev];
-      newFlips[cardIndex] = !newFlips[cardIndex];
-      return newFlips;
-    });
+    if (isProcessing) return;
 
     if (!isApproved) {
-      console.error("Token non approuvé. Veuillez approuver d'abord.");
+      setError("Token non approuvé. Veuillez approuver d'abord.");
       return;
     }
 
-    const amount = BigInt(Math.floor(Number(betAmount) * 10 ** 18));
-    if (amount <= 0) {
-      console.error("Le montant du pari doit être supérieur à 0.");
+    const parsedAmount = Number(betAmount);
+    if (isNaN(parsedAmount) || parsedAmount <= 0) {
+      setError("Le montant du pari doit être supérieur à 0.");
       return;
     }
+
+    if (!address) {
+      setError("Aucune adresse connectée.");
+      return;
+    }
+
+    const amount = BigInt(Math.floor(parsedAmount * 10 ** 18));
 
     try {
+      setError(null);
+      setIsProcessing(true);
+
       await writeContract({
         address: gamblingAddress,
         abi: gamblingAbi,
         functionName: "bet",
         args: [amount, cardIndex],
       });
+
       console.log("Bet successful");
+
+      setFlippedCards((prev) => {
+        const newFlips = [...prev];
+        newFlips[cardIndex] = !newFlips[cardIndex];
+        return newFlips;
+      });
     } catch (error) {
+      setError("Échec du pari. Vérifiez votre transaction.");
       console.error("Bet failed:", error);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
-  if (!address) {
+  if (!isConnected) {
     return (
       <div className={styles.container}>
         <ConnectButton />
@@ -111,10 +136,16 @@ export default function GamblingPage() {
       </div>
 
       {!isApproved && (
-        <button onClick={handleApprove} className={styles.approveButton} disabled={isApproved}>
-          Approve Tokens
+        <button 
+          onClick={handleApprove} 
+          className={styles.approveButton} 
+          disabled={isApproved || isProcessing}
+        >
+          {isProcessing ? "En cours..." : "Approuver les tokens"}
         </button>
       )}
+
+      {error && <p className={styles.errorMessage}>{error}</p>}
 
       <div className={styles.game}>
         {Array.from({ length: 4 }).map((_, i) => (
